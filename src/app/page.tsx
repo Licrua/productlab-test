@@ -6,17 +6,17 @@ export default function TaskForm() {
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
   const [tags, setTags] = useState<string[]>([]);
-  const [budgetFrom, setBudgetFrom] = useState<number | ''>('');
-  const [budgetTo, setBudgetTo] = useState<number | ''>('');
-  const [budgetFromRules, setBudgetFromRules] = useState<number | ''>('');
-  const [budgetToRules, setBudgetToRules] = useState<number | ''>('');
-  const [deadlineDays, setDeadlineDays] = useState<number | ''>('');
-  const [numberOfReminders, setNumberOfReminders] = useState<number | ''>('');
-  const [isHard, setIsHard] = useState(false);
+  const [budgetFrom, setBudgetFrom] = useState<number | ''>(1000); // Дефолтное значение
+  const [budgetTo, setBudgetTo] = useState<number | ''>(5000); // Дефолтное значение
+  const [budgetFromRules, setBudgetFromRules] = useState<number | ''>(5000); // Дефолтное значение
+  const [budgetToRules, setBudgetToRules] = useState<number | ''>(8000); // Дефолтное значение
+  const [deadlineDays, setDeadlineDays] = useState<number | ''>(1); // Дефолтное значение
+  const [numberOfReminders, setNumberOfReminders] = useState<number | ''>(3); // Дефолтное значение
+  const [isHard, setIsHard] = useState(true); // Дефолтное значение
   
-  // Новые поля
-  const [qtyFreelancers, setQtyFreelancers] = useState<number | ''>('');
-  const [taskId, setTaskId] = useState<number | ''>('');
+  // Новые поля с дефолтными значениями
+  const [qtyFreelancers, setQtyFreelancers] = useState<number | ''>(1); // Дефолтное значение
+  const [taskId, setTaskId] = useState<number | ''>(339); // Дефолтное значение
 
   const token = useTokenStore((state) => state.token);
 
@@ -52,17 +52,17 @@ export default function TaskForm() {
         body: JSON.stringify(task),
       });
 
-	  if (response.ok) {
-		const data = await response.json();
-		const { token } = data; 
-		useTokenStore.getState().setToken(token); 
-		alert('Вы успешно вошли!');
-	  } else {
-		alert('Ошибка при логине');
-	  }
-	} catch (error) {
-	  alert('Произошла ошибка при логине');
-	}
+      if (response.ok) {
+        const data = await response.json();
+        const { token } = data; 
+        useTokenStore.getState().setToken(token); 
+        alert('Вы успешно вошли!');
+      } else {
+        alert('Ошибка при логине');
+      }
+    } catch (error) {
+      alert('Произошла ошибка при логине');
+    }
   };
 
   return (
